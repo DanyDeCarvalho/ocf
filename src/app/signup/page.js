@@ -1,38 +1,50 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ComposantB from "./signup/page";
 
-export default function Home() {
+const Signup = () => {
   return (
     <div className="flex flex-wrap h-screen font-sans">
       <div className="basis-2/3">
-        <img className="h-screen w-full" src="/login.jpg" alt="image" />
+        <img className="h-screen w-full" src="/signup.jpg" alt="image" />
       </div>
       <div className="basis-1/3 flex justify-center items-center h-full bg-zinc-950">
         <div className="flex flex-col w-9/12 border-white border rounded-xl justify-center items-center">
           <div className="flex flex-col justify-left items-left w-11/12">
-            <h1 className="text-3xl pt-10">Login</h1>
-            <h2 className="mb-4">Glad you're back !</h2>
+            <h1 className="text-3xl pt-10">Signup</h1>
+            <h2 className="mb-4">Just some details to get you in !</h2>
           </div>
           <form className="flex flex-col w-11/12">
             <input
               className="bg-black text-white border-white border-2 h-10 rounded-xl mb-4 pl-2"
               value={"Username"}
             ></input>
+
+            <div className="flex items-center justify-center gap-60">
+              <label>
+                <input type="radio"></input>
+                Teacher
+              </label>
+              <label>
+                <input type="radio"></input>
+                Student
+              </label>
+            </div>
+            <input
+              className="bg-black text-white border-white border-2 h-10 rounded-xl mb-5 pl-2"
+              value={"Email/ Phone"}
+            ></input>
             <input
               className="bg-black text-white border-white border-2 h-10 rounded-xl mb-2 pl-2"
               value={"Password"}
             ></input>
-            <div className="flex gap-1 mb-6">
-              <input className="" type="checkbox"></input>
-              <label>Remember me</label>
-            </div>
-            <button className="bg-gradient-to-l from-purple-800 to-blue-600 pt-3 pb-3 rounded-xl mb-1 w-full">
-              Login
+            <input
+              className="bg-black text-white border-white border-2 h-10 rounded-xl mb-2 pl-2"
+              value={"Confirm Password"}
+            ></input>
+            <button className="bg-gradient-to-l from-blue-950 to-blue-600 pt-3 pb-3 rounded-xl mt-12 mb-1 w-full">
+              Signup
             </button>
-            <Link href="/forgotpassword">
-            <p className="text-center pb-5">Forgot password ?</p>
-            </Link>
             <div className=" flex gap-7 items-center justify-center">
               <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-500 w-6/12"></hr>
               <a className="my-5"> Or </a>
@@ -61,9 +73,10 @@ export default function Home() {
                 alt="Picture of the author"
               />
             </div>
-            <Link  href="/signup">
-            <p className="text-center mb-1"> Don't have an account ? Signup</p>
+            <Link href="/">
+              <p className="text-center mb-1"> Already Registered ? Login</p>
             </Link>
+
             <div className="gap-10 flex justify-center items-center pb-10">
               <a>Terms & Conditions</a>
               <a>Support</a>
@@ -74,4 +87,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Signup;
