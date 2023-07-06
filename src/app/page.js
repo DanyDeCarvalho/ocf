@@ -1,77 +1,60 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import ComposantB from "./signup/page";
+import Navbar from "./components/navbar";
 
+async function getData() {
+  const res = await fetch("localhost:8000/api/v1/login", { method: "post" });
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
 export default function Home() {
   return (
-    <div className="flex flex-wrap h-screen font-sans">
-      <div className="basis-2/3">
-        <img className="h-screen w-full" src="/login.jpg" alt="image" />
-      </div>
-      <div className="basis-1/3 flex justify-center items-center h-full bg-zinc-950">
-        <div className="flex flex-col w-9/12 border-white border rounded-xl justify-center items-center">
-          <div className="flex flex-col justify-left items-left w-11/12">
-            <h1 className="text-3xl pt-10">Login</h1>
-            <h2 className="mb-4">Glad you're back !</h2>
+    <>
+      <Navbar />
+      <div className="flex bg-gradient-to-r from-yellow-500 to-yellow-300 h-screen justify-center items-center">
+        <div className="h-4/6 w-9/12 bg-zinc-600">
+          <h1 className="text-center pt-12 text-2xl"> Welcome teacher</h1>
+          <div className="text-xl pl-14 pt-6 pb-6">
+            <h2 className=" bg-blue-900 w-3/12 rounded-xl">
+              Is that your first time on GlobalTutor ?
+            </h2>
           </div>
-          <form className="flex flex-col w-11/12">
-            <input
-              className="bg-black text-white border-white border-2 h-10 rounded-xl mb-4 pl-2"
-              value={"Username"}
-            ></input>
-            <input
-              className="bg-black text-white border-white border-2 h-10 rounded-xl mb-2 pl-2"
-              value={"Password"}
-            ></input>
-            <div className="flex gap-1 mb-6">
-              <input className="" type="checkbox"></input>
-              <label>Remember me</label>
+          <div className=" flex flex-row gap-6 justify-between w-11/12 m-auto items-center mt-8">
+            <div className="h-2/6 w-5/12 ">
+              <p className="text-center text-lg">What to do</p>
+              <div className="bg-slate-100 text-black">
+                <ul className="text-2xl">
+                  <Link href="">
+                    <li className="mb-4 pt-4">1- List your lessons</li>
+                  </Link>
+                  <li className="mb-4">2- Update your course</li>
+                  <li className="pb-5">3- Create lessons</li>
+                  <li className="pb-5">3- Delete lessons</li>
+                  <li className="pb-5">3- Student management</li>
+                </ul>
+              </div>
             </div>
-            <button className="bg-gradient-to-l from-purple-800 to-blue-600 pt-3 pb-3 rounded-xl mb-1 w-full">
-              Login
-            </button>
-            <Link href="/forgotpassword">
-            <p className="text-center pb-5">Forgot password ?</p>
-            </Link>
-            <div className=" flex gap-7 items-center justify-center">
-              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-500 w-6/12"></hr>
-              <a className="my-5"> Or </a>
-              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 w-6/12"></hr>
+            <div className="h-2/6 w-5/12 ">
+              <p className="text-center text-lg">Update</p>
+              <div className="bg-slate-100 text-black">
+                <p className="text-2xl">Here our next issue</p>
+                <ul className="text-2xl">
+                  <li className="mb-4 pt-4">1- 10 days maj for the chat box</li>
+                </ul>
+              </div>
             </div>
-
-            <div className="flex gap-5 justify-center mb-20">
-              <Image
-                src="/google.png"
-                width={50}
-                height={10}
-                alt="Picture of the author"
-              />
-
-              <Image
-                src="/facebook.png"
-                width={50}
-                height={50}
-                alt="Picture of the author"
-              />
-              <Image
-                className="bg-white rounded-3xl"
-                src="/github.png"
-                width={50}
-                height={50}
-                alt="Picture of the author"
-              />
-            </div>
-            <Link  href="/signup">
-            <p className="text-center mb-1"> Don't have an account ? Signup</p>
-            </Link>
-            <div className="gap-10 flex justify-center items-center pb-10">
-              <a>Terms & Conditions</a>
-              <a>Support</a>
-              <a>Customer Care</a>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

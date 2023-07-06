@@ -1,10 +1,26 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { signup } from "../action";
+import { redirect } from "next/navigation";
 
 const Signup = () => {
+  const [name, setName] = useState("Name");
+  const [lastname, setLastname] = useState("Last Name");
+  const [email, setEmail] = useState("Email");
+  const [password, setPassword] = useState("Password");
+
+    async function create(data) {
+      const res = await signup(data);
+      console.log(res);
+      if (res.id) {
+        redirect("/login");
+      }
+    }
   return (
-    <div className="flex flex-wrap h-screen font-sans">
+    <div className="flex flex-wrap h-screen font-sans text-white">
       <div className="basis-2/3">
         <img className="h-screen w-full" src="/signup.jpg" alt="image" />
       </div>
@@ -14,12 +30,19 @@ const Signup = () => {
             <h1 className="text-3xl pt-10">Signup</h1>
             <h2 className="mb-4">Just some details to get you in !</h2>
           </div>
-          <form className="flex flex-col w-11/12">
+          <form action={create} className="flex flex-col w-11/12">
             <input
+              name="firstName"
               className="bg-black text-white border-white border-2 h-10 rounded-xl mb-4 pl-2"
-              value={"Username"}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             ></input>
-
+            <input
+              name="lastName"
+              className="bg-black text-white border-white border-2 h-10 rounded-xl mb-4 pl-2"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+            ></input>
             <div className="flex items-center justify-center gap-60">
               <label>
                 <input type="radio"></input>
@@ -31,18 +54,21 @@ const Signup = () => {
               </label>
             </div>
             <input
+              name="email"
               className="bg-black text-white border-white border-2 h-10 rounded-xl mb-5 pl-2"
-              value={"Email/ Phone"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             ></input>
             <input
+              name="password"
               className="bg-black text-white border-white border-2 h-10 rounded-xl mb-2 pl-2"
-              value={"Password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             ></input>
-            <input
-              className="bg-black text-white border-white border-2 h-10 rounded-xl mb-2 pl-2"
-              value={"Confirm Password"}
-            ></input>
-            <button className="bg-gradient-to-l from-blue-950 to-blue-600 pt-3 pb-3 rounded-xl mt-12 mb-1 w-full">
+            <button
+              type="submit"
+              className="bg-gradient-to-l from-blue-950 to-blue-600 pt-3 pb-3 rounded-xl mt-12 mb-1 w-full"
+            >
               Signup
             </button>
             <div className=" flex gap-7 items-center justify-center">
@@ -73,7 +99,7 @@ const Signup = () => {
                 alt="Picture of the author"
               />
             </div>
-            <Link href="/">
+            <Link href="/login">
               <p className="text-center mb-1"> Already Registered ? Login</p>
             </Link>
 
