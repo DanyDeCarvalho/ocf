@@ -7,7 +7,7 @@ export async function login(data) {
     },
     body: JSON.stringify({
       email: data.get("email"),
-      password: data.get("password"),
+      password: data.get("password"), 
     }),
   });
   const response = await res.json();
@@ -25,6 +25,7 @@ export async function refreshtoken(refreshtoken) {
     })
   });
   const response = await res.json();
+  console.log(refreshtoken);
   return response;
 }
 
@@ -60,4 +61,33 @@ export async function addCours(data, myToken) {
   });
   const response = await res.json();
   return response;
+}
+
+export async function getUsers(myToken) {
+  const res = await fetch("http://localhost:8000/api/v1/users", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "bearer " + myToken,
+    }
+  });
+  const response = await res.json();
+  return response;
+}
+
+export async function updateUser(data, id, myToken) {
+  console.log(myToken);
+  const res = await fetch(`http://localhost:8000/api/v1/users/${id}`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "bearer " + myToken,
+    },
+    body: JSON.stringify({
+      firstname: data.get("firstname"),
+      lastname: data.get("lastname"),
+      password: data.get("email"),
+    }),
+  });
+ 
 }

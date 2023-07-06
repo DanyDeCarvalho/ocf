@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { login } from "../action";
+import { login, refreshtoken } from "../action";
 import { redirect } from "next/navigation";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
     const refresh = await refreshtoken(res.refresh_token);
     localStorage.setItem("token", res.token);
     localStorage.setItem("refresh_token", refresh.refresh_token);
-    console.log(res.token);
+    console.log(refresh.refresh_token);
     if (res.token) {
       redirect("/");
     }
